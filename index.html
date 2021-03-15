@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive TOC leaders in CSS</title>
+
+  <style>
+    html {
+      box-sizing: border-box;
+      font-size: 20px;
+      line-height: 1.75rem;
+      -webkit-text-size-adjust: 100%;
+      background-color: #eff3f9;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: inherit;
+    }
+
+    h1, h2, h3 { margin: .5rem 0 1rem 0; padding: 0; }
+
+    .wrapper {
+      width: 60vw;
+      margin: auto;
+      padding-top: 3rem;
+    }
+
+    .toc {
+      position: relative;
+      padding: 3rem;
+      background: #def;
+      border-radius: 1rem;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1.5rem;
+
+      overflow: auto;
+      resize: horizontal;
+    }
+
+    .resizer-info {
+      position: absolute;
+      bottom: 0;
+      right: .6rem;
+      font-size: .8rem;
+    }
+
+    .entry {
+      display: grid;
+      grid-template-columns: auto max-content;
+      grid-template-areas: "chapter page";
+      align-items: end;
+      gap: 0 1ch;
+    }
+
+    .chapter {
+      grid-area: chapter;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chapter::after {
+      position: absolute;
+      padding-left: .25ch;
+      content: " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . "
+        ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . "
+        ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ";
+      text-align: right;
+    }
+
+    .page {
+      grid-area: page;
+    }
+
+    hr {
+      height: 0;
+      margin: 3rem 0;
+      border: 0;
+      border-bottom: 1px solid #ccc;
+    }
+
+    pre {
+      width: 100%;
+      padding: 1rem;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1rem;
+    }
+
+    code,
+    pre {
+      white-space: pre-wrap !important;
+    }
+  </style>
+
+  <!-- prism syntax highlighing -->
+  <link rel="stylesheet" href="https://unpkg.com/prismjs@1.23.0/themes/prism-coy.css">
+</head>
+
+<body>
+  <div class="wrapper">
+    <h1>Responsive TOC leaders in CSS</h1>
+
+    <p>Example of how to create those dotted lines and make all of it responsive.</p>
+
+    <div class="toc">
+      <h2>Contents</h2>
+      <div class="entry">
+        <div class="chapter">A chapter title</div>
+        <div class="page">01</div>
+      </div>
+      <div class="entry">
+        <div class="chapter">Slightly longer title which needs to break into multiple lines to fit on the page</div>
+        <div class="page">09</div>
+      </div>
+      <div class="entry">
+        <div class="chapter">Another awesome chapter</div>
+        <div class="page">23</div>
+      </div>
+      <div class="entry">
+        <div class="chapter">Be more creative with your titles ;-)</div>
+        <div class="page">42</div>
+      </div>
+
+      <div class="resizer-info">Resize this box horizontally. ↘</div>
+    </div>
+
+    <hr>
+
+    <h2>Code</h2>
+
+    <h3>HTML</h3>
+
+    <pre><code class="language-html">
+&lt;div class=&quot;toc&quot;&gt;
+  &lt;h2&gt;Contents&lt;/h2&gt;
+
+  &lt;div class=&quot;entry&quot;&gt;
+    &lt;div class=&quot;chapter&quot;&gt;A chapter title&lt;/div&gt;
+    &lt;div class=&quot;page&quot;&gt;01&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;entry&quot;&gt;
+    &lt;div class=&quot;chapter&quot;&gt;Slightly longer title which needs to break into multiple lines to fit on the page&lt;/div&gt;
+    &lt;div class=&quot;page&quot;&gt;09&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;entry&quot;&gt;
+    &lt;div class=&quot;chapter&quot;&gt;Another awesome chapter&lt;/div&gt;
+    &lt;div class=&quot;page&quot;&gt;23&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;entry&quot;&gt;
+    &lt;div class=&quot;chapter&quot;&gt;Be more creative with your titles ;-)&lt;/div&gt;
+    &lt;div class=&quot;page&quot;&gt;42&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+      </code></pre>
+
+    <h3>CSS</h3>
+
+    <pre><code class="language-css">
+.entry {
+  display: grid;
+  grid-template-columns: auto max-content;
+  grid-template-areas: "chapter page";
+  align-items: end;
+  gap: 0 .25rem; /* customize the gap to your needs */
+}
+
+.chapter {
+  grid-area: chapter;
+  position: relative;
+  overflow: hidden;
+}
+
+.chapter::after {
+  position: absolute;
+  padding-left: .25ch; /* customise the padding to your needs */
+  /* adjust the amount of dots to your needs */
+  content: " . . . . . . . . . . . . . . . . . . . "
+    ". . . . . . . . . . . . . . . . . . . . . . . "
+    ". . . . . . . . . . . . . . . . . . . . . . . "
+    ". . . . . . . . . . . . . . . . . . . . . . . "
+    ". . . . . . . . . . . . . . . . . . . . . . . ";
+  text-align: right; /* optional, can be removed */
+}
+
+.page {
+  grid-area: page;
+}
+      </code></pre>
+  </div>
+
+  <!-- prism syntax highlighing -->
+  <script src="https://unpkg.com/prismjs@1.23.0/prism.js"></script>
+</body>
+
+</html>
