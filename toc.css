@@ -1,0 +1,90 @@
+:root { --refsize: 20px; --width: 60vw; }
+
+html {
+  box-sizing: border-box;
+  font-size: var(--refsize);
+  line-height: 1.75rem;
+  -webkit-text-size-adjust: 100%;
+  background-color: #eff3f9;
+}
+html, body { margin: 0; padding: 0; }
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+h1, h2, h3 { margin: .5rem 0 1rem 0; padding: 0; }
+
+.wrapper {
+  width: var(--width);
+  margin: auto;
+  padding-top: 3rem;
+}
+
+.toc {
+  position: relative;
+  padding: 3rem;
+  background: #def;
+  border-radius: 1rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.5rem;
+
+  overflow: auto;
+  resize: horizontal;
+}
+
+.resizer-info {
+  position: absolute;
+  bottom: 0;
+  right: .6rem;
+  font-size: .8rem;
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: auto max-content;
+  grid-template-areas: "chapter page";
+  align-items: end;
+  gap: 0 1ch;
+}
+
+.chapter {
+  grid-area: chapter;
+  position: relative;
+  overflow: hidden;
+}
+
+.chapter::after {
+  position: absolute;
+  padding-left: .25ch;
+  content: " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . "
+    ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . "
+    ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ";
+  text-align: right;
+}
+
+.page {
+  grid-area: page;
+}
+
+hr {
+  height: 0;
+  margin: 3rem 0;
+  border: 0;
+  border-bottom: 1px solid #ccc;
+}
+
+pre {
+  width: 100%;
+  padding: 1rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
+}
+
+code, pre { white-space: pre-wrap !important; }
+
+@media only screen and (max-width: 599px) { :root { --refsize: 16px; --width: calc(100vw - 20px); } }
+@media only screen and (min-width: 600px) { :root { --refsize: 18px; --width: 90vw; } }
+@media only screen and (min-width: 900px) { :root { --refsize: 20px; --width: 80vw; } }
+@media only screen and (min-width: 1200px) { :root { --width: 60vw; } }
+@media only screen and (min-width: 1800px) { :root { --width: 50vw; } }
